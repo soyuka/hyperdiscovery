@@ -1,5 +1,5 @@
 var swarmDefaults = require('datland-swarm-defaults')
-var disc = require('discovery-swarm')
+var swarm = require('discovery-swarm')
 var xtend = require('xtend')
 
 module.exports = HyperdriveSwarm
@@ -28,7 +28,8 @@ function HyperdriveSwarm (archive, opts) {
     }
   }, opts)
 
-  this.swarm = disc(swarmDefaults(opts))
+  var sw = opts.swarm ? opts.swarm : swarm
+  this.swarm = sw(swarmDefaults(opts))
   this.swarm.once('error', function () {
     self.swarm.listen(0)
   })
